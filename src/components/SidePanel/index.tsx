@@ -1,13 +1,32 @@
+import {
+  sidePanelContainer,
+  sidePanelSection,
+  sidePanelShapeButton,
+} from "./sidepanel.css";
+
 interface PanelProps {
   onShapeSelect: (shape: "circle" | "rectangle") => void;
 }
 
 const SidePanel = ({ onShapeSelect }: PanelProps) => {
   return (
-    <div>
-      <button onClick={() => onShapeSelect("circle")}>원 추가</button>
-      <button onClick={() => onShapeSelect("rectangle")}>사각형 추가</button>
-    </div>
+    <section className={sidePanelContainer}>
+      <h3>도형 추가</h3>
+      <div className={sidePanelSection}>
+        <button
+          className={sidePanelShapeButton}
+          onClick={() => onShapeSelect("circle")}
+        >
+          ⚫️
+        </button>
+        <button
+          className={sidePanelShapeButton}
+          onClick={() => onShapeSelect("rectangle")}
+        >
+          ⬛️
+        </button>
+      </div>
+    </section>
   );
 };
 

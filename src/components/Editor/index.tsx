@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useState } from "react";
 import SidePanel from "../SidePanel";
+import { editorContainer } from "./editor.css";
 
 interface Shape {
   x: number;
@@ -95,8 +96,8 @@ export default function Editor() {
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    canvas.width = 500;
-    canvas.height = 500;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     canvas.style.backgroundColor = "#fffbf5";
   }, []);
 
@@ -177,7 +178,7 @@ export default function Editor() {
   return (
     <>
       <SidePanel onShapeSelect={handleShapeSelect} />
-      <canvas ref={canvasRef} />
+      <canvas className={editorContainer} ref={canvasRef} />
     </>
   );
 }
