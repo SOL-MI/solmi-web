@@ -64,8 +64,7 @@ export default function Editor() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    shapes.forEach((shape, index) => {
-      console.log("shape", shape.type, index);
+    shapes.forEach((shape) => {
       ctx.fillStyle = shape.color;
       if (shape.type === "circle") {
         ctx.beginPath();
@@ -82,7 +81,6 @@ export default function Editor() {
 
       const AlphabetComponent = Alphabets[shape.type as keyof typeof Alphabets];
       if (AlphabetComponent) {
-        console.log("들어옴", AlphabetComponent);
         AlphabetComponent({ x: shape.x, y: shape.y, ctx });
       }
 
@@ -127,7 +125,7 @@ export default function Editor() {
             Math.sqrt((offsetX - shape.x) ** 2 + (offsetY - shape.y) ** 2) <
             shape.radius
           );
-        } else if (shape.type === "rectangle") {
+        } else if (shape.type === "rectangle" || shape.type === "S") {
           return (
             offsetX > shape.x - shape.width / 2 &&
             offsetX < shape.x + shape.width / 2 &&
