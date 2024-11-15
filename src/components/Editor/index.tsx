@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import SidePanel from "../SidePanel";
 import { editorContainer } from "./editor.css";
+import Alphabets from "../Alphabets";
 
 interface Shape {
   x: number;
@@ -10,7 +11,7 @@ interface Shape {
   radius: number;
   width: number;
   height: number;
-  type: "circle" | "rectangle";
+  type: "circle" | "rectangle" | keyof typeof Alphabets;
   isSelected: boolean;
   color: string;
 }
@@ -23,7 +24,9 @@ export default function Editor() {
     null
   );
 
-  const handleShapeSelect = (shapeType: "circle" | "rectangle") => {
+  const handleShapeSelect = (
+    shapeType: "circle" | "rectangle" | keyof typeof Alphabets
+  ) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -61,7 +64,8 @@ export default function Editor() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    shapes.forEach((shape) => {
+    shapes.forEach((shape, index) => {
+      console.log("shape", shape.type, index);
       ctx.fillStyle = shape.color;
       if (shape.type === "circle") {
         ctx.beginPath();
@@ -74,6 +78,12 @@ export default function Editor() {
           shape.width,
           shape.height
         );
+      }
+
+      const AlphabetComponent = Alphabets[shape.type as keyof typeof Alphabets];
+      if (AlphabetComponent) {
+        console.log("들어옴", AlphabetComponent);
+        AlphabetComponent({ x: shape.x, y: shape.y, ctx });
       }
 
       if (shape.isSelected) {

@@ -1,3 +1,4 @@
+import Alphabets from "../Alphabets";
 import {
   sidePanelContainer,
   sidePanelSection,
@@ -5,7 +6,9 @@ import {
 } from "./sidepanel.css";
 
 interface PanelProps {
-  onShapeSelect: (shape: "circle" | "rectangle") => void;
+  onShapeSelect: (
+    shape: "circle" | "rectangle" | keyof typeof Alphabets
+  ) => void;
 }
 
 const SidePanel = ({ onShapeSelect }: PanelProps) => {
@@ -24,6 +27,12 @@ const SidePanel = ({ onShapeSelect }: PanelProps) => {
           onClick={() => onShapeSelect("rectangle")}
         >
           ⬛️
+        </button>
+        <button
+          className={sidePanelShapeButton}
+          onClick={() => onShapeSelect("S")}
+        >
+          S
         </button>
       </div>
     </section>
