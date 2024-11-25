@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import SidePanel from "../SidePanel";
 import { editorContainer } from "./editor.css";
 import Alphabets from "../Alphabets";
+import { randomColor } from "@/utils/randomColor";
 
 interface Shape {
   x: number;
@@ -46,15 +47,6 @@ export default function Editor() {
     setShapes((prevShapes) => [...prevShapes, newShape]);
   };
 
-  function randomColor() {
-    const letters = "0123456789ABCDEF";
-    let color = "#";
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-  }
-
   const drawShapes = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -83,7 +75,6 @@ export default function Editor() {
       if (AlphabetComponent) {
         AlphabetComponent({ x: shape.x, y: shape.y, ctx });
       }
-
       if (shape.isSelected) {
         ctx.lineWidth = 2;
         ctx.strokeStyle = "black";
